@@ -57,11 +57,11 @@ This report explores data on Assured Income for the Severely Handicapped (AISH) 
 
 Some of the observed trends are too drastic to invite an intuitive explanation and therefore are suspect of a data entry issue
 
-- North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swaped for them starting with June 2020.   
+- North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swapped for them starting with June 2020.   
 
-- There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristi of the preceding and following trajectory that we suspect a data entry.   
+- There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristic of the preceding and following trajectory that we suspect a data entry.   
 
-- The same month, April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patters for the month of April 2020 that deviate sharply from previous and following trajectories. 
+- The same month, April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patterns for the month of April 2020 that deviate sharply from previous and following trajectories. 
 
 
 
@@ -201,4 +201,4 @@ Error in get(genname, envir = envir) : object 'testthat_print' not found
 
 
 
-Report rendered by an499583 at 2021-04-15, 21:52 -0400 in 20 seconds.
+Report rendered by an499583 at 2021-04-15, 22:16 -0400 in 16 seconds.
