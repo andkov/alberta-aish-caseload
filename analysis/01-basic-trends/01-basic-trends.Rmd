@@ -1,0 +1,236 @@
+---
+title: "Basic Trends in AISH Trends"
+author: 
+  - "Andriy Koval"
+  - "Kyle Belanger"  
+output:
+  html_document:
+    keep_md: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+    theme: simplex
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+This report explores data on Assured Income for the Severely Handicapped (AISH) taken from the [open.alberta.ca](https://open.alberta.ca/opendata/assured-income-for-the-severely-handicapped-aish-caseload-alberta) portal.
+
+<!--  Set the working directory to the repository's base directory; this assumes the report is nested inside of two directories.-->
+```{r, echo=F, message=F, results = 'hide'}
+```
+
+
+```{r set_options, echo=F}
+# cat("Working directory: ", getwd()) # turn on to test the location
+report_render_start_time <- Sys.time()
+# set options shared by all chunks
+knitr::opts_chunk$set(
+  results      = 'show',
+  message      = FALSE,
+  warning      = FALSE,
+  comment      = NA,
+  tidy         = FALSE,
+  dpi        = 400, # dots per inch,
+  out.width  = "900px", # pixels, this affects only the markdown, not the underlying png file.  The height will be scaled appropriately.
+  fig.width    = 11, # inches
+  fig.height   = 6, # inches
+  out.width    = 1200,
+  fig.path     = 'figure-png-com/' # where figures are stored
+)
+echo_chunks    <- FALSE #Toggle for debugging.
+message_chunks <- FALSE #Toggle for debugging.
+options(width=100) # number of characters to display in the output (dflt = 80)
+ggplot2::theme_set(ggplot2::theme_bw()) # common theme for all graphs
+```
+
+
+<!-- Load the sources.  Suppress the output when loading sources. --> 
+```{r load-sources, echo = F}
+source("../../scripts/common-functions.R")
+```
+
+
+<!-- Load packages, or at least verify they're available on the local machine.  Suppress the output when loading packages. -->
+```{r load-packages, message=message_chunks, echo =F}
+library(magrittr)  # pipes
+library(dplyr)     # data wrangling
+library(ggplot2)   # graphs
+library(janitor)   # tidy data
+library(tidyr)     # data wrangling
+library(forcats)   # factors
+library(stringr)   # strings
+library(lubridate) # dates
+```
+
+
+<!-- Load any Global functions and variables declared in the R file.  Suppress the output. --> 
+```{r declare-globals, echo =F}
+# custom function for HTML tables
+neat <- function(x, output_format = "html"){ 
+  # knitr.table.format = output_format
+  if(output_format == "pandoc"){
+    x_t <- knitr::kable(x, format = "pandoc")
+  }else{
+    x_t <- x %>%
+      # x %>%
+      # neat() %>%
+      knitr::kable(format=output_format) %>%
+      kableExtra::kable_styling(
+        bootstrap_options = c("striped", "hover", "condensed","responsive"),
+        # bootstrap_options = c( "condensed"),
+        full_width = F,
+        position = "left"
+      )
+  } 
+  return(x_t)
+}
+# Note: when printing to Word or PDF use `neat(output_format =  "pandoc")`
+
+# functionalize
+draw_trends <- function(
+  d
+  ,selected_measure
+){
+   target_date <- as.Date("2020-04-15")
+  d1 <- d %>%
+    filter(measure_type == selected_measure)
+  g1 <- d1 %>%
+    {
+    ggplot(., aes(x=date, y=value, color = measure, group = measure))+
+    geom_line(size=4, alpha = .1, color = "black" )+
+    geom_line(size=.5)+
+    geom_point(aes(x=target_date), shape = 21, fill = NA,size = 2, color = "black",
+               data = . %>% filter(date == target_date))+
+    # geom_vline(xintercept = as.Date("2020-03-11"), linetype="dashed")+
+    facet_wrap(vars(!!rlang::sym("measure")), scales = "free_y")+
+    scale_y_continuous(labels = scales::comma)+
+    labs(
+      title = paste0("AISH Caseload by ", selected_measure)
+      ,color = "Metric"
+      ,x = "Date"
+      ,y = "Number of cases"
+      ,caption = "Temporal resolution: 1 month       Hollow circle = April 2020"
+    )
+    }
+  g1
+}
+# Test and Dev
+# ds1 %>% draw_trends("Family Composition") 
+
+```
+
+
+```{r load-data, results='show', message=FALSE, echo =F}
+# getwd()
+path_file <- "../../data-public/raw/open-alberta/2021-04/goasharedcssspqpqara_research-strategiesopen-data00-open-data-asset-packages-2021aish-monthlyais.csv"
+ds0 <- readr::read_csv(path_file) %>% janitor::clean_names()
+
+```
+
+```{r tweak-data,echo = echo_chunks, results='show', message=message_chunks, echo =F}
+ds1 <- ds0 %>%
+  mutate(
+    date = parse_date_time(ref_date,"Y%m%") %>% as_date() + 14 # middle of the month
+  )
+```
+
+# Take away points 
+
+## Observations
+
+- Caseload experiences a stunted growth after the onset of COVID ( ~ March of 2020) (see [Gender](#gender). This may be explained by the introduction of the $2,000 monthly assistance to the unemployed due to COVID in April of 2020.  
+
+- This explanation is corroborated in the caseload trends by [Medical Condition](#medical-condition): after April 2020 clients with Physical Disability exhibited a more pronounced plateau than those with Cognitive or Mental Illness Disorders.  
+
+- This trend (stunted growth of caseloads after April 2020) is more pronounced in South and Central regions (see [Regions](#regions).  
+
+- Employment Participation ([Income](#income)) drops precipitously after April 2020, but recovers to December 2019 levels by the end of 2021.  
+
+
+## Potential Issues
+
+Some of the observed trends are too drastic to invite an intuitive explanation and therefore are suspect of a data entry issue
+
+- North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swaped for them starting with June 2020.   
+
+- There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristi of the preceding and following trajectory that we suspect a data entry.   
+
+- The same month, April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patters for the month of April 2020 that deviate sharply from previous and following trajectories. 
+
+
+
+# Gender
+```{r graph-6, echo = echo_chunks, results='show', message=message_chunks, fig.height = 4}
+ds1 %>% draw_trends("AISH Client Gender")
+```
+
+# Medical Condition
+```{r graph-3, echo = echo_chunks, results='show', message=message_chunks}
+ds1 %>% draw_trends("AISH Client Primary Medical Condition") 
+```
+
+# Regions
+
+```{r graph-7, echo = echo_chunks, results='show', message=message_chunks, fig.height = 7}
+ds1 %>% draw_trends("CSS Regions")
+```
+
+- __DATA ISSUE__: North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swaped for them starting with June 2020.   
+
+
+
+# Family Composition
+```{r graph-1, echo = echo_chunks, results='show', message=message_chunks}
+ds1 %>% draw_trends("Family Composition")
+```
+
+- __DATA ISSUE__: There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristi of the preceding and following trajectory that we suspect a data entry.  
+
+# Caseload
+```{r graph-2, echo = echo_chunks, results='show', message=message_chunks}
+ds1 %>% draw_trends("AISH Client Caseload")
+```
+
+
+
+# Age
+```{r graph-4, echo = echo_chunks, results='show', message=message_chunks}
+ds1 %>% draw_trends("AISH Client Average Age") 
+```
+
+- __DATA ISSUE__:  April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patters for the month of April 2020 that deviate sharply from previous and following trajectories.  
+
+# Income
+```{r graph-5, echo = echo_chunks, results='show', message=message_chunks, fig.height = 4}
+ds1 %>% draw_trends("AISH Client Income Type Snapshots")
+```
+
+
+
+
+
+
+
+Session Information {#session-info}
+===========================================================================
+
+For the sake of documentation and reproducibility, the current report was rendered in the following environment.  Click the line below to expand.
+
+<details>
+  <summary>Environment <span class="glyphicon glyphicon-plus-sign"></span></summary>
+```{r session-info, echo=FALSE}
+if( requireNamespace("devtools", quietly = TRUE) ) {
+  devtools::session_info()
+} else {
+  sessionInfo()
+}
+```
+</details>
+
+```{r session-duration, echo=FALSE}
+report_render_duration_in_seconds <- round(as.numeric(difftime(Sys.time(), report_render_start_time, units="secs")))
+```
+
+Report rendered by `r Sys.info()["user"]` at `r strftime(Sys.time(), "%Y-%m-%d, %H:%M %z")` in `r report_render_duration_in_seconds` seconds.
