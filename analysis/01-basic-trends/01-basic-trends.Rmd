@@ -140,11 +140,11 @@ ds1 <- ds0 %>%
 
 ## Observations
 
-- Caseload experiences a stunted growth after the onset of COVID ( ~ March of 2020) (see [Gender](#gender). This may be explained by the introduction of the $2,000 monthly assistance to the unemployed due to COVID in April of 2020.  
+- Caseload experiences a stunted growth after the onset of COVID ( ~ March of 2020) (see [Gender](#gender)). This may be explained by the introduction of the $2,000 monthly assistance to the unemployed due to COVID in April of 2020.  
 
 - This explanation is corroborated in the caseload trends by [Medical Condition](#medical-condition): after April 2020 clients with Physical Disability exhibited a more pronounced plateau than those with Cognitive or Mental Illness Disorders.  
 
-- This trend (stunted growth of caseloads after April 2020) is more pronounced in South and Central regions (see [Regions](#regions).  
+- This trend (stunted growth of caseloads after April 2020) is more pronounced in South and Central regions (see [Regions](#regions)).  
 
 - Employment Participation ([Income](#income)) drops precipitously after April 2020, but recovers to December 2019 levels by the end of 2021.  
 
@@ -177,7 +177,7 @@ ds1 %>% draw_trends("AISH Client Primary Medical Condition")
 ds1 %>% draw_trends("CSS Regions")
 ```
 
-- __DATA ISSUE__: North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swaped for them starting with June 2020.   
+- __DATA ISSUE__: North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swapped for them starting with June 2020.   
 
 
 
@@ -186,7 +186,7 @@ ds1 %>% draw_trends("CSS Regions")
 ds1 %>% draw_trends("Family Composition")
 ```
 
-- __DATA ISSUE__: There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristi of the preceding and following trajectory that we suspect a data entry.  
+- __DATA ISSUE__: There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristic of the preceding and following trajectory that we suspect a data entry error.  
 
 # Caseload
 ```{r graph-2, echo = echo_chunks, results='show', message=message_chunks}
@@ -200,7 +200,7 @@ ds1 %>% draw_trends("AISH Client Caseload")
 ds1 %>% draw_trends("AISH Client Average Age") 
 ```
 
-- __DATA ISSUE__:  April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patters for the month of April 2020 that deviate sharply from previous and following trajectories.  
+- __DATA ISSUE__:  April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patterns for the month of April 2020 that deviate sharply from previous and following trajectories.  
 
 # Income
 ```{r graph-5, echo = echo_chunks, results='show', message=message_chunks, fig.height = 4}

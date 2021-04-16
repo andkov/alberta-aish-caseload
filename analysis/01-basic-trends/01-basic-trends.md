@@ -44,11 +44,11 @@ This report explores data on Assured Income for the Severely Handicapped (AISH) 
 
 ## Observations
 
-- Caseload experiences a stunted growth after the onset of COVID ( ~ March of 2020) (see [Gender](#gender). This may be explained by the introduction of the $2,000 monthly assistance to the unemployed due to COVID in April of 2020.  
+- Caseload experiences a stunted growth after the onset of COVID ( ~ March of 2020) (see [Gender](#gender)). This may be explained by the introduction of the $2,000 monthly assistance to the unemployed due to COVID in April of 2020.  
 
 - This explanation is corroborated in the caseload trends by [Medical Condition](#medical-condition): after April 2020 clients with Physical Disability exhibited a more pronounced plateau than those with Cognitive or Mental Illness Disorders.  
 
-- This trend (stunted growth of caseloads after April 2020) is more pronounced in South and Central regions (see [Regions](#regions).  
+- This trend (stunted growth of caseloads after April 2020) is more pronounced in South and Central regions (see [Regions](#regions)).  
 
 - Employment Participation ([Income](#income)) drops precipitously after April 2020, but recovers to December 2019 levels by the end of 2021.  
 
@@ -75,14 +75,14 @@ Some of the observed trends are too drastic to invite an intuitive explanation a
 
 <img src="figure-png-com/graph-7-1.png" width="1200" />
 
-- __DATA ISSUE__: North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swaped for them starting with June 2020.   
+- __DATA ISSUE__: North Central and North West exhibit (see [Regions](#regions)) unnatural change from May to June of 2020. It's as if the data entry was swapped for them starting with June 2020.   
 
 
 
 # Family Composition
 <img src="figure-png-com/graph-1-1.png" width="1200" />
 
-- __DATA ISSUE__: There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristi of the preceding and following trajectory that we suspect a data entry.  
+- __DATA ISSUE__: There is an aberration in caseload among Childless Couples and Couples with Children (see [Family Composition](#family-composition)) for the month of April 2020. These are so uncharacteristic of the preceding and following trajectory that we suspect a data entry error.  
 
 # Caseload
 <img src="figure-png-com/graph-2-1.png" width="1200" />
@@ -92,7 +92,7 @@ Some of the observed trends are too drastic to invite an intuitive explanation a
 # Age
 <img src="figure-png-com/graph-4-1.png" width="1200" />
 
-- __DATA ISSUE__:  April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patters for the month of April 2020 that deviate sharply from previous and following trajectories.  
+- __DATA ISSUE__:  April 2020 stands out when caseload is broken by [Client Average Age](#age). Clients of Age 65+ exhibit a sharp spike in case counts, while clients of Age 18 - 19 show a sharp depression for that month. Other age groups (e.g. 20-24, 45-49, 50-54) also exhibit unnatural patterns for the month of April 2020 that deviate sharply from previous and following trajectories.  
 
 # Income
 <img src="figure-png-com/graph-5-1.png" width="1200" />
@@ -126,7 +126,7 @@ Error in get(genname, envir = envir) : object 'testthat_print' not found
  collate  English_United States.1252  
  ctype    English_United States.1252  
  tz       America/New_York            
- date     2021-04-15                  
+ date     2021-04-16                  
 
 - Packages ---------------------------------------------------------------------------------------
  package     * version date       lib source        
@@ -201,4 +201,4 @@ Error in get(genname, envir = envir) : object 'testthat_print' not found
 
 
 
-Report rendered by an499583 at 2021-04-15, 22:16 -0400 in 16 seconds.
+Report rendered by an499583 at 2021-04-16, 10:22 -0400 in 18 seconds.
